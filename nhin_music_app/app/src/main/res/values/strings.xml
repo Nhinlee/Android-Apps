@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">nhin_music_app</string>
+
+    <!--Screen Strings-->
+    <string name="home_screen_title">Home</string>
+    <string name="search_screen_title">Search</string>
+    <string name="library_screen_title">Library</string>
 </resources>
