@@ -38,7 +38,6 @@ android {
     }
     composeOptions {
         kotlinCompilerExtensionVersion compose_version
-        kotlinCompilerVersion '1.5.31'
     }
     packagingOptions {
         resources {
@@ -67,4 +66,5 @@ dependencies {
 
     // Unit test
     testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation "androidx.test.ext:junit:1.1.3"
 }
