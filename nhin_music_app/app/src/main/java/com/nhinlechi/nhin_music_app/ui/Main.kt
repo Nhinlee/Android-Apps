@@ -1,5 +1,6 @@
 package com.nhinlechi.nhin_music_app.ui
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
@@ -22,6 +23,7 @@ import com.nhinlechi.nhin_music_app.ui.screen.Screen
 import com.nhinlechi.nhin_music_app.ui.screen.SearchScreen
 import com.nhinlechi.nhin_music_app.ui.theme.Nhin_music_appTheme
 
+@ExperimentalFoundationApi
 @Composable
 fun Main() {
     val navController = rememberNavController()
@@ -95,6 +97,7 @@ fun Main() {
     }
 }
 
+@ExperimentalFoundationApi
 @Preview
 @Composable
 fun MainPreview() {
