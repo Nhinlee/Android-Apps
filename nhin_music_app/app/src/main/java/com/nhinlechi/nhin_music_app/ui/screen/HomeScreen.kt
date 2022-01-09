@@ -37,7 +37,7 @@ fun HomeScreen(navController: NavController? = null) {
         Row(
             horizontalArrangement = Arrangement.End,
             modifier = Modifier
-                .padding(horizontal = 16.dp)
+                .padding(horizontal = 8.dp)
                 .fillMaxWidth()
         ) {
             LocalIconButton(
@@ -58,7 +58,7 @@ fun HomeScreen(navController: NavController? = null) {
         Space(height = 8F)
         LazyVerticalGrid(
             cells = GridCells.Adaptive(minSize = 150.dp),
-            modifier = Modifier.padding(16.dp),
+            modifier = Modifier.padding(12.dp),
         ) {
             items(hitPlayListItems.size) { index ->
                 Box(Modifier.padding(vertical = 4.dp, horizontal = 4.dp)) {
