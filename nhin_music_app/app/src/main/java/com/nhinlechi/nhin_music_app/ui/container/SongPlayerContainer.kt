@@ -19,42 +19,36 @@ import com.nhinlechi.nhin_music_app.ui.general.Space
 fun SongPlayerContainer() {
     Box(
         modifier = Modifier
-            .fillMaxSize()
+            .height(Dp(60F))
+            .background(color = MaterialTheme.colors.primary)
+            .fillMaxWidth()
+            .border(width = Dp(0.5F), color = MaterialTheme.colors.primaryVariant),
     ) {
-        Box(
-            modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .height(Dp(60F))
-                .background(color = MaterialTheme.colors.primary)
-                .fillMaxWidth()
-                .border(width = Dp(0.5F), color = MaterialTheme.colors.primaryVariant),
-        ) {
-            Row(horizontalArrangement = Arrangement.SpaceBetween) {
-                Row(horizontalArrangement = Arrangement.Start) {
-                    Image(
-                        painter = painterResource(id = R.drawable.ic_launcher_background),
-                        contentDescription = null
-                    )
-                    Space(width = 8F)
-                    Column(
-                        verticalArrangement = Arrangement.Center,
-                        modifier = Modifier.fillMaxHeight()
-                    ) {
-                        Text("Chúng ta không thuộc về nhau")
-                        Space(width = 8F)
-                        Text("Sơn tùng MTP", color = MaterialTheme.colors.onSecondary)
-                    }
-                }
-                Row(
-                    horizontalArrangement = Arrangement.End,
-                    verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(end = Dp(8F))
+        Row(horizontalArrangement = Arrangement.SpaceBetween) {
+            Row(horizontalArrangement = Arrangement.Start) {
+                Image(
+                    painter = painterResource(id = R.drawable.ic_launcher_background),
+                    contentDescription = null
+                )
+                Space(width = 8F)
+                Column(
+                    verticalArrangement = Arrangement.Center,
+                    modifier = Modifier.fillMaxHeight()
                 ) {
-                    LocalIconButton(resId = R.drawable.devices)
-                    LocalIconButton(resId = R.drawable.play)
+                    Text("Chúng ta không thuộc về nhau")
+                    Space(width = 8F)
+                    Text("Sơn tùng MTP", color = MaterialTheme.colors.onSecondary)
                 }
+            }
+            Row(
+                horizontalArrangement = Arrangement.End,
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(end = Dp(8F))
+            ) {
+                LocalIconButton(resId = R.drawable.devices)
+                LocalIconButton(resId = R.drawable.play)
             }
         }
     }

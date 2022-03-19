@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -16,6 +17,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.nhinlechi.nhin_music_app.R
+import com.nhinlechi.nhin_music_app.domain.SongsViewModel
 import com.nhinlechi.nhin_music_app.ui.container.SongPlayerContainer
 import com.nhinlechi.nhin_music_app.ui.screen.HomeScreen
 import com.nhinlechi.nhin_music_app.ui.screen.LibraryScreen
@@ -25,7 +27,7 @@ import com.nhinlechi.nhin_music_app.ui.theme.Nhin_music_appTheme
 
 @ExperimentalFoundationApi
 @Composable
-fun Main() {
+fun Main(songsViewModel: SongsViewModel) {
     val navController = rememberNavController()
     val screens = listOf(
         Screen.Home,
@@ -77,29 +79,42 @@ fun Main() {
                     }
                 }
             }) { innerPadding ->
-                Box(
+                Column(
                     modifier = Modifier
                         .fillMaxSize()
                         .padding(innerPadding),
                 ) {
-                    NavHost(
-                        navController = navController,
-                        startDestination = Screen.Home.route,
-                    ) {
-                        composable(Screen.Home.route) { HomeScreen(navController = navController) }
-                        composable(Screen.Search.route) { SearchScreen(navController = navController) }
-                        composable(Screen.Library.route) { LibraryScreen(navController = navController) }
+                    Box(modifier = Modifier
+                        .weight(1f)
+                        .wrapContentWidth(Alignment.Start)) {
+                        NavHost(
+                            navController = navController,
+                            startDestination = Screen.Home.route,
+                        ) {
+                            composable(Screen.Home.route) { HomeScreen(navController = navController) }
+                            composable(Screen.Search.route) {
+                                SearchScreen(
+                                    navController = navController,
+                                    songsViewModel = songsViewModel
+                                )
+                            }
+                            composable(Screen.Library.route) { LibraryScreen(navController = navController) }
+                        }
                     }
-                    SongPlayerContainer()
+                    Box {
+                        SongPlayerContainer()
+                    }
+//
                 }
             }
         }
     }
 }
 
-@ExperimentalFoundationApi
-@Preview
-@Composable
-fun MainPreview() {
-    Main()
-}
+// TODO: ViewModel issues
+//@ExperimentalFoundationApi
+//@Preview
+//@Composable
+//fun MainPreview() {
+//    Main()
+//}
