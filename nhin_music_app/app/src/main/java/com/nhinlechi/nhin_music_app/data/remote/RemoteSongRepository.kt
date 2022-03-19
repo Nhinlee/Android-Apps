@@ -1,12 +1,10 @@
-package com.nhinlechi.nhin_music_app.data
+package com.nhinlechi.nhin_music_app.data.remote
 
+import com.nhinlechi.nhin_music_app.data.ISongRepository
 import com.nhinlechi.nhin_music_app.model.Song
 import kotlinx.coroutines.flow.Flow
 
-class SongsRepository(
-    localRepos: ISongsRepository,
-    remoteRepos: ISongsRepository,
-) : ISongsRepository {
+class RemoteSongRepository: ISongRepository {
     override fun getSongsByPage(offset: Int, limit: Int): List<Song> {
         TODO("Not yet implemented")
     }
