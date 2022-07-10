@@ -16,7 +16,7 @@ import com.nhinlechi.nhin_music_app.ui.general.LocalIconButton
 import com.nhinlechi.nhin_music_app.ui.general.Space
 
 @Composable
-fun SongPlayerContainer() {
+fun SongPlayerContainer(onPlayClick: () -> Unit) {
     Box(
         modifier = Modifier
             .height(Dp(60F))

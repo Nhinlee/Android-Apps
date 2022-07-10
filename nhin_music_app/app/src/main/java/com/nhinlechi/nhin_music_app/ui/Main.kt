@@ -1,5 +1,7 @@
 package com.nhinlechi.nhin_music_app.ui
 
+import android.support.v4.media.session.MediaControllerCompat
+import android.support.v4.media.session.PlaybackStateCompat
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
@@ -8,7 +10,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -27,7 +28,7 @@ import com.nhinlechi.nhin_music_app.ui.theme.Nhin_music_appTheme
 
 @ExperimentalFoundationApi
 @Composable
-fun Main(songsViewModel: SongsViewModel) {
+fun Main(songsViewModel: SongsViewModel, mediaController: MediaControllerCompat? = null) {
     val navController = rememberNavController()
     val screens = listOf(
         Screen.Home,
@@ -84,9 +85,11 @@ fun Main(songsViewModel: SongsViewModel) {
                         .fillMaxSize()
                         .padding(innerPadding),
                 ) {
-                    Box(modifier = Modifier
-                        .weight(1f)
-                        .wrapContentWidth(Alignment.Start)) {
+                    Box(
+                        modifier = Modifier
+                            .weight(1f)
+                            .wrapContentWidth(Alignment.Start)
+                    ) {
                         NavHost(
                             navController = navController,
                             startDestination = Screen.Home.route,
@@ -102,7 +105,21 @@ fun Main(songsViewModel: SongsViewModel) {
                         }
                     }
                     Box {
-                        SongPlayerContainer()
+                        SongPlayerContainer(
+                            onPlayClick = {
+                                if (mediaController == null) return@SongPlayerContainer
+
+                                val pbState = mediaController.playbackState.state
+                                if (pbState == PlaybackStateCompat.STATE_PLAYING) {
+                                    mediaController.transportControls.pause()
+                                } else {
+                                    mediaController.transportControls.play()
+                                }
+
+                                // Display the initial state
+                                val metadata = mediaController.metadata
+                            },
+                        )
                     }
 //
                 }

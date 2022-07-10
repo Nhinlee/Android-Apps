@@ -80,7 +80,7 @@ class MediaPlaybackService : MediaBrowserServiceCompat() {
     }
 
     companion object {
-        const val Tag = "MediaPlaybackService"
+        const val Tag = "MediaPlaybackService - Nhin Pro"
         const val rootID = "MY_MEDIA_ROOT_ID"
         const val rootEmptyId = "MY_EMPTY_MEDIA_ROOT_ID"
     }
