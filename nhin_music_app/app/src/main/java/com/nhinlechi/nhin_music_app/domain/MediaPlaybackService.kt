@@ -1,5 +1,6 @@
 package com.nhinlechi.nhin_music_app.domain
 
+import android.app.PendingIntent
 import android.os.Bundle
 import android.support.v4.media.MediaBrowserCompat
 import android.support.v4.media.session.MediaSessionCompat
@@ -14,7 +15,19 @@ class MediaPlaybackService : MediaBrowserServiceCompat() {
     override fun onCreate() {
         super.onCreate()
 
+        // Build a PendingIntent that can be used to launch the UI.
+        val sessionActivityPendingIntent =
+            packageManager?.getLaunchIntentForPackage(packageName)?.let { sessionIntent ->
+                PendingIntent.getActivity(this, 0, sessionIntent, 0)
+            }
+
         mediaSession = MediaSessionCompat(baseContext, Tag).apply {
+
+            // TODO: test this behavior
+            setSessionActivity(sessionActivityPendingIntent)
+
+            // TODO: test this behavior
+            isActive = true
 
             // Set an initial PlaybackState with ACTION_PLAY, so media buttons can start the player
             stateBuilder = PlaybackStateCompat.Builder()
@@ -77,6 +90,13 @@ class MediaPlaybackService : MediaBrowserServiceCompat() {
             // and put the children of that menu in the mediaItems list...
         }
         result.sendResult(mediaItems)
+    }
+
+    override fun onDestroy() {
+        mediaSession?.run {
+            isActive = false
+        }
+        super.onDestroy()
     }
 
     companion object {
