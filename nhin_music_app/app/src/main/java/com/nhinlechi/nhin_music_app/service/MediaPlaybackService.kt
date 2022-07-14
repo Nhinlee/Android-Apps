@@ -1,4 +1,4 @@
-package com.nhinlechi.nhin_music_app.domain
+package com.nhinlechi.nhin_music_app.service
 
 import android.app.PendingIntent
 import android.os.Bundle
@@ -26,7 +26,6 @@ class MediaPlaybackService : MediaBrowserServiceCompat() {
             // TODO: test this behavior
             setSessionActivity(sessionActivityPendingIntent)
 
-            // TODO: test this behavior
             isActive = true
 
             // Set an initial PlaybackState with ACTION_PLAY, so media buttons can start the player
@@ -43,6 +42,10 @@ class MediaPlaybackService : MediaBrowserServiceCompat() {
             // Set the session's token so that client activities can communicate with it.
             setSessionToken(sessionToken)
         }
+    }
+
+    private inner class MySessionCallback : MediaSessionCompat.Callback() {
+        // TODO: impl session callback
     }
 
     override fun onGetRoot(
@@ -104,8 +107,4 @@ class MediaPlaybackService : MediaBrowserServiceCompat() {
         const val rootID = "MY_MEDIA_ROOT_ID"
         const val rootEmptyId = "MY_EMPTY_MEDIA_ROOT_ID"
     }
-}
-
-class MySessionCallback : MediaSessionCompat.Callback() {
-
 }
