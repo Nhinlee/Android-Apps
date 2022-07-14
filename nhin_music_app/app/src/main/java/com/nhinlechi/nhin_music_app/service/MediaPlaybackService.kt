@@ -9,7 +9,7 @@ import androidx.media.MediaBrowserServiceCompat
 
 class MediaPlaybackService : MediaBrowserServiceCompat() {
 
-    private var mediaSession: MediaSessionCompat? = null
+    private lateinit var mediaSession: MediaSessionCompat
     private lateinit var stateBuilder: PlaybackStateCompat.Builder
 
     override fun onCreate() {
@@ -78,6 +78,7 @@ class MediaPlaybackService : MediaBrowserServiceCompat() {
         //  Browsing not allowed
         if (rootEmptyId == parentId) {
             result.sendResult(null)
+            mediaSession.sendSessionEvent(LOAD_CHILDREN_ERROR, null)
             return
         }
 
@@ -96,7 +97,7 @@ class MediaPlaybackService : MediaBrowserServiceCompat() {
     }
 
     override fun onDestroy() {
-        mediaSession?.run {
+        mediaSession.run {
             isActive = false
         }
         super.onDestroy()
@@ -106,5 +107,7 @@ class MediaPlaybackService : MediaBrowserServiceCompat() {
         const val Tag = "MediaPlaybackService - Nhin Pro"
         const val rootID = "MY_MEDIA_ROOT_ID"
         const val rootEmptyId = "MY_EMPTY_MEDIA_ROOT_ID"
+
+        const val LOAD_CHILDREN_ERROR = "MediaPlaybackService.LOAD_CHILDREN_ERROR"
     }
 }
