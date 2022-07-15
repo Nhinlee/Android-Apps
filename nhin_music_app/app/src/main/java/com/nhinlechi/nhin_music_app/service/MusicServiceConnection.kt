@@ -8,11 +8,12 @@ import android.support.v4.media.MediaMetadataCompat
 import android.support.v4.media.session.MediaControllerCompat
 import android.support.v4.media.session.MediaSessionCompat
 import android.support.v4.media.session.PlaybackStateCompat
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 
 class MusicServiceConnection(
-    private val context: Context,
-    private val serviceComponent: ComponentName,
+    context: Context,
+    serviceComponent: ComponentName,
 ) : IMusicServiceConnection {
     // Media browser
     private val mediaBrowserConnectionCallback = MediaBrowserConnectionCallback(context)
@@ -22,13 +23,20 @@ class MusicServiceConnection(
         serviceComponent,
         mediaBrowserConnectionCallback,
         null,
-    )
+    ).apply {
+        Log.d(Tag, "Media browser send connect to music service >>>")
+        Log.d(Tag, "context >> $context")
+        connect()
+    }
 
     // Media controller
     private lateinit var mediaController: MediaControllerCompat
 
 
     // Live data
+    override val mediaRootId: String
+        get() = mediaBrowser.root
+
     override val isConnected = MutableLiveData<Boolean>().apply {
         postValue(false)
     }
@@ -55,6 +63,7 @@ class MusicServiceConnection(
         MediaBrowserCompat.ConnectionCallback() {
         override fun onConnected() {
             super.onConnected()
+            Log.d(Tag, "Media browser is connected success with service <<<")
             mediaController = MediaControllerCompat(context, mediaBrowser.sessionToken).apply {
                 registerCallback(MediaControllerCallback())
             }
@@ -97,6 +106,9 @@ class MusicServiceConnection(
         }
     }
 
+    companion object {
+        const val Tag = "MusicServiceConnection"
+    }
 }
 
 @Suppress("PropertyName")

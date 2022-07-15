@@ -5,7 +5,9 @@ import android.os.Bundle
 import android.support.v4.media.MediaBrowserCompat
 import android.support.v4.media.session.MediaSessionCompat
 import android.support.v4.media.session.PlaybackStateCompat
+import android.util.Log
 import androidx.media.MediaBrowserServiceCompat
+import com.nhinlechi.nhin_music_app.config.LogTag
 
 class MediaPlaybackService : MediaBrowserServiceCompat() {
 
@@ -13,6 +15,7 @@ class MediaPlaybackService : MediaBrowserServiceCompat() {
     private lateinit var stateBuilder: PlaybackStateCompat.Builder
 
     override fun onCreate() {
+        Log.d(Tag, "onCreate")
         super.onCreate()
 
         // Build a PendingIntent that can be used to launch the UI.
@@ -53,6 +56,7 @@ class MediaPlaybackService : MediaBrowserServiceCompat() {
         clientUid: Int,
         rootHints: Bundle?
     ): BrowserRoot {
+        Log.d(Tag, "onGetRoot")
         // (Optional) Control the level of access for the specified package name.
         // You'll need to write your own logic to do this.
         return if (allowBrowsing(clientPackageName, clientUid)) {
@@ -75,6 +79,7 @@ class MediaPlaybackService : MediaBrowserServiceCompat() {
         parentId: String,
         result: Result<MutableList<MediaBrowserCompat.MediaItem>>
     ) {
+        Log.d(Tag, "onLoadChildren")
         //  Browsing not allowed
         if (rootEmptyId == parentId) {
             result.sendResult(null)
@@ -97,6 +102,7 @@ class MediaPlaybackService : MediaBrowserServiceCompat() {
     }
 
     override fun onDestroy() {
+        Log.d(Tag, "onDestroy")
         mediaSession.run {
             isActive = false
         }
@@ -104,7 +110,7 @@ class MediaPlaybackService : MediaBrowserServiceCompat() {
     }
 
     companion object {
-        const val Tag = "MediaPlaybackService - Nhin Pro"
+        const val Tag = "MediaPlaybackService"
         const val rootID = "MY_MEDIA_ROOT_ID"
         const val rootEmptyId = "MY_EMPTY_MEDIA_ROOT_ID"
 

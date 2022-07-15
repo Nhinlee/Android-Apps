@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData
 
 interface IMusicServiceConnection {
 
+    val mediaRootId: String
     val isConnected: LiveData<Boolean>
     val playbackState: LiveData<PlaybackStateCompat>
     val transportControls: MediaControllerCompat.TransportControls

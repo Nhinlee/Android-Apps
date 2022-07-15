@@ -1,10 +1,12 @@
 package com.nhinlechi.nhin_music_app
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.foundation.ExperimentalFoundationApi
+import com.nhinlechi.nhin_music_app.config.LogTag
 import com.nhinlechi.nhin_music_app.domain.SongsViewModel
 import com.nhinlechi.nhin_music_app.ui.Main
 import dagger.hilt.android.AndroidEntryPoint
@@ -18,6 +20,11 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             Main(songsViewModel = songViewModel)
+        }
+
+        // Register callback
+        songViewModel.rootMediaId.observe(this) {
+            Log.d(LogTag, "MainActivity: Root MediaId: $it")
         }
     }
 
