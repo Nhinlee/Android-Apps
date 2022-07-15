@@ -17,12 +17,6 @@ class SongsViewModel @Inject constructor(
     private val musicServiceConnection: IMusicServiceConnection,
 ) : ViewModel() {
 
-    init {
-        musicServiceConnection.also {
-            // TODO: subscribe music service
-        }
-    }
-
     fun getSongs(): Flow<PagingData<Song>> {
         return songRepository.getSongsByPage().cachedIn(viewModelScope)
     }
