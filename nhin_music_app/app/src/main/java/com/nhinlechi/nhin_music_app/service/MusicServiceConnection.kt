@@ -51,7 +51,7 @@ class MusicServiceConnection(
 
 
     // Inner classes - Callback
-    private inner class MediaBrowserConnectionCallback(context: Context) :
+    private inner class MediaBrowserConnectionCallback(private val context: Context) :
         MediaBrowserCompat.ConnectionCallback() {
         override fun onConnected() {
             super.onConnected()

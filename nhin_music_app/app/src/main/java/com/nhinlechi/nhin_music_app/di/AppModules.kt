@@ -12,6 +12,7 @@ import com.nhinlechi.nhin_music_app.service.MusicServiceConnection
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
@@ -41,7 +42,7 @@ class AppModules {
 
     @Singleton
     @Provides
-    fun defaultMusicServiceConnection(context: Context): IMusicServiceConnection {
+    fun defaultMusicServiceConnection(@ApplicationContext context: Context): IMusicServiceConnection {
         synchronized(this) {
             return musicServiceConnection ?: MusicServiceConnection(
                 context = context,
