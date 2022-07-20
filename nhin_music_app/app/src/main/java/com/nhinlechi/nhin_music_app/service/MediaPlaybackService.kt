@@ -7,7 +7,6 @@ import android.support.v4.media.session.MediaSessionCompat
 import android.support.v4.media.session.PlaybackStateCompat
 import android.util.Log
 import androidx.media.MediaBrowserServiceCompat
-import com.nhinlechi.nhin_music_app.config.LogTag
 
 class MediaPlaybackService : MediaBrowserServiceCompat() {
 
@@ -21,10 +20,14 @@ class MediaPlaybackService : MediaBrowserServiceCompat() {
         // Build a PendingIntent that can be used to launch the UI.
         val sessionActivityPendingIntent =
             packageManager?.getLaunchIntentForPackage(packageName)?.let { sessionIntent ->
-                PendingIntent.getActivity(this, 0, sessionIntent, 0)
+                PendingIntent.getActivity(
+                    this, 0,
+                    sessionIntent,
+                    PendingIntent.FLAG_IMMUTABLE
+                )
             }
 
-        mediaSession = MediaSessionCompat(baseContext, Tag).apply {
+        mediaSession = MediaSessionCompat(this, Tag).apply {
 
             // TODO: test this behavior
             setSessionActivity(sessionActivityPendingIntent)

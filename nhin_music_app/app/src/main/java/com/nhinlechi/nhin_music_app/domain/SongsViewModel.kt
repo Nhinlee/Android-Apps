@@ -1,13 +1,11 @@
 package com.nhinlechi.nhin_music_app.domain
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.nhinlechi.nhin_music_app.config.LogTag
 import com.nhinlechi.nhin_music_app.data.ISongRepository
 import com.nhinlechi.nhin_music_app.model.Song
 import com.nhinlechi.nhin_music_app.service.IMusicServiceConnection

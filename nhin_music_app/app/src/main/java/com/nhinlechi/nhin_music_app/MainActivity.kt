@@ -6,7 +6,6 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.foundation.ExperimentalFoundationApi
-import com.nhinlechi.nhin_music_app.config.LogTag
 import com.nhinlechi.nhin_music_app.domain.SongsViewModel
 import com.nhinlechi.nhin_music_app.ui.Main
 import dagger.hilt.android.AndroidEntryPoint
@@ -24,7 +23,7 @@ class MainActivity : ComponentActivity() {
 
         // Register callback
         songViewModel.rootMediaId.observe(this) {
-            Log.d(LogTag, "MainActivity: Root MediaId: $it")
+            Log.d(Tag, "MainActivity: Root MediaId: $it")
         }
     }
 
@@ -39,5 +38,9 @@ class MainActivity : ComponentActivity() {
 
     override fun onStop() {
         super.onStop()
+    }
+
+    companion object {
+        const val Tag = "MainActivity"
     }
 }

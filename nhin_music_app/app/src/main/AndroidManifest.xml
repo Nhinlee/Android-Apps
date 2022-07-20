@@ -23,7 +23,7 @@
         </activity>
 
         <service
-            android:name=".domain.MediaPlaybackService"
+            android:name=".service.MediaPlaybackService"
             android:exported="false">
             <intent-filter>
                 <action android:name="android.media.browse.MediaBrowserService" />
